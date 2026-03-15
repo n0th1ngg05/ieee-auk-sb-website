@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — IEEE AUK Student Branch</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-logo">IEEE</div>
+      <div class="brand-text">
+        <div class="org">Amity University Kolkata</div>
+        <div class="name">IEEE Student Branch</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="about.html">About</a>
+      <a href="chapters.html">Chapters</a><a href="events.html">Events</a>
+      <a href="publications.html">Publications</a><a href="team.html">Team</a>
+      <a href="sponsors.html">Sponsors</a><a href="contact.html" class="active">Contact</a>
+      <a href="https://ieee.org/membership" target="_blank" class="nav-join">Join IEEE</a>
+    </div>
+    <button class="nav-toggle"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div id="mobile-nav">
+  <a href="index.html">Home</a><a href="about.html">About</a>
+  <a href="chapters.html">Chapters</a><a href="events.html">Events</a>
+  <a href="publications.html">Publications</a><a href="team.html">Team</a>
+  <a href="sponsors.html">Sponsors</a><a href="contact.html">Contact</a>
+  <a href="https://ieee.org/membership" target="_blank" class="nav-join">Join IEEE ↗</a>
+</div>
+
+<section class="page-header">
+  <div class="container page-header-content">
+    <div class="section-label">Get In Touch</div>
+    <h1>Contact Us</h1>
+    <p>Have a question, proposal, or want to collaborate? We'd love to hear from you.</p>
+  </div>
+</section>
+
+<section class="section-pad" style="background:white;">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- FORM -->
+      <div class="contact-form-wrap">
+        <h3>Send Us a Message</h3>
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject</label>
+            <input type="text" id="subject" name="subject" placeholder="What is this regarding?" />
+          </div>
+          <div class="form-group">
+            <label for="category">Category</label>
+            <select id="category" name="category">
+              <option value="">Select a category</option>
+              <option value="membership">IEEE Membership</option>
+              <option value="event">Event Inquiry</option>
+              <option value="sponsorship">Sponsorship</option>
+              <option value="collaboration">Collaboration</option>
+              <option value="research">Research</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message *</label>
+            <textarea id="message" name="message" placeholder="Write your message here…" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:14px;">Send Message →</button>
+        </form>
+      </div>
+
+      <!-- CONTACT INFO -->
+      <div class="contact-info">
+        <div class="contact-info-card">
+          <h4>📍 Our Location</h4>
+          <div class="contact-info-item">
+            <div class="ico">🏫</div>
+            <div>
+              <div class="ci-label">University</div>
+              <div class="ci-val">Amity University Kolkata</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ico">📌</div>
+            <div>
+              <div class="ci-label">Address</div>
+              <div class="ci-val">Action Area II, Newtown<br>Kolkata – 700135<br>West Bengal, India</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <h4>✉️ Contact Details</h4>
+          <div class="contact-info-item">
+            <div class="ico">📧</div>
+            <div>
+              <div class="ci-label">Email</div>
+              <div class="ci-val"><a href="mailto:ieee@amity.edu" style="color:var(--ieee-blue);">ieee@amity.edu</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ico">🔗</div>
+            <div>
+              <div class="ci-label">LinkedIn</div>
+              <div class="ci-val"><a href="https://linkedin.com" target="_blank" style="color:var(--ieee-blue);">IEEE AUK SB</a></div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ico">📸</div>
+            <div>
+              <div class="ci-label">Instagram</div>
+              <div class="ci-val"><a href="https://instagram.com" target="_blank" style="color:var(--ieee-blue);">@ieee_auk_sb</a></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-info-card">
+          <h4>🕐 Office Hours</h4>
+          <div class="contact-info-item">
+            <div class="ico">📅</div>
+            <div>
+              <div class="ci-label">Weekdays</div>
+              <div class="ci-val">Monday – Friday<br>10:00 AM – 5:00 PM</div>
+            </div>
+          </div>
+          <div class="contact-info-item">
+            <div class="ico">📌</div>
+            <div>
+              <div class="ci-label">Location</div>
+              <div class="ci-val">IEEE Room, Student Activity Centre<br>Amity University Kolkata</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section style="background:var(--bg-light);padding:64px 0;">
+  <div class="container">
+    <div class="text-center" style="margin-bottom:32px;">
+      <div class="section-label">Find Us</div>
+      <h2 class="section-title">Amity University Kolkata</h2>
+    </div>
+    <div class="map-embed">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3682.6327127984374!2d88.47194!3d22.5794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a0275b099d01b77%3A0x2ac0ba8b1c3e832d!2sAmity%20University%20Kolkata!5e0!3m2!1sen!2sin!4v1234567890"
+        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade" title="Amity University Kolkata Map">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand-logo-f">IEEE AUK SB</div>
+        <p>IEEE Amity University Kolkata Student Branch — advancing technology for the benefit of humanity.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+          <li><a href="chapters.html">Chapters</a></li><li><a href="events.html">Events</a></li>
+          <li><a href="publications.html">Publications</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Student Branch</h5>
+        <ul>
+          <li><a href="team.html">Our Team</a></li><li><a href="sponsors.html">Sponsors</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="https://ieee.org/membership" target="_blank">Join IEEE ↗</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Contact Info</h5>
+        <ul>
+          <li><a href="mailto:ieee@amity.edu">ieee@amity.edu</a></li>
+          <li><a href="#">Action Area II, Newtown</a></li>
+          <li><a href="#">Kolkata – 700135, WB</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 IEEE Amity University Kolkata Student Branch. All rights reserved.</p>
+      <div class="footer-socials">
+        <a href="https://linkedin.com" target="_blank">🔗</a>
+        <a href="https://instagram.com" target="_blank">📸</a>
+        <a href="mailto:ieee@amity.edu">✉️</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,524 @@
+IEEE Amity University Kolkata Student Branch Website
+
+Create a modern, professional, multi-page website for the IEEE Amity University Kolkata Student Branch (AUK SB).
+
+The website must look like a technical academic organization website, similar to IEEE, MIT labs, or university research group sites.
+
+Design inspiration:
+A modular homepage layout similar to the Essex Summer School website, with:
+
+• large hero banner
+• modular grid content blocks
+• statistics counters
+• academic sections
+• professional typography
+• strong structure
+
+The website must be fully responsive and structured for future database integration.
+
+Use only:
+
+HTML
+CSS
+Vanilla JavaScript
+
+Do not use frameworks like React or Angular.
+
+PROJECT DIRECTORY STRUCTURE
+
+Use exactly the following structure:
+
+root
+│
+├── index.html
+├── about.html
+├── chapters.html
+├── events.html
+├── publications.html
+├── sponsors.html
+├── team.html
+├── contact.html
+│
+├── css
+│   └── styles.css
+│
+├── js
+│   └── main.js
+│
+└── assets
+    ├── images
+    ├── logos
+    ├── videos
+    ├── pdfs
+
+The assets folder must contain all static files, including:
+
+event posters
+chapter logos
+team photos
+sponsor logos
+PDF papers
+IEEE documents
+videos
+
+DESIGN LANGUAGE
+
+The visual style must reflect IEEE professionalism.
+
+Color palette:
+
+IEEE Blue
+#00629B
+
+Dark Navy
+#0B1F3A
+
+White
+#FFFFFF
+
+Light background grey
+#F5F7FA
+
+Accent highlight
+#00AEEF
+
+Typography must be:
+
+clean
+technical
+modern
+
+Spacing must be generous and balanced.
+
+Avoid clutter.
+
+GLOBAL NAVIGATION BAR
+
+Sticky navigation bar at the top.
+
+Left side:
+
+IEEE logo
+Text:
+
+IEEE Amity University Kolkata
+Student Branch
+
+Right side navigation:
+
+Home
+About
+Chapters
+Events
+Publications
+Team
+Sponsors
+Contact
+Join IEEE
+
+Navbar must shrink slightly on scroll.
+
+Mobile version must collapse into a hamburger menu.
+
+HOMEPAGE STRUCTURE (index.html)
+
+The homepage must contain the following sections in order.
+
+HERO SECTION
+
+Full screen height.
+
+Background image of campus or IEEE themed technology.
+
+Overlay gradient.
+
+Centered content.
+
+Main heading:
+
+IEEE Amity University Kolkata Student Branch
+
+Subheading:
+
+Advancing Technology for Humanity
+
+Buttons:
+
+Join IEEE
+Explore Events
+
+Buttons must have hover animations.
+
+ABOUT SB INTRODUCTION
+
+Centered content block.
+
+Heading:
+
+About Our Student Branch
+
+Paragraph describing:
+
+IEEE mission
+technology innovation
+engineering community
+student collaboration
+
+Button:
+
+Learn More
+
+CHAPTERS OVERVIEW
+
+Grid layout.
+
+3–4 columns.
+
+Cards representing IEEE societies.
+
+Examples:
+
+IEEE Computer Society
+IEEE Robotics and Automation Society
+IEEE Signal Processing Society
+IEEE Women in Engineering
+
+Each card includes:
+
+logo
+chapter name
+short description
+learn more button
+
+Hover animation: card lift.
+
+EVENTS SECTION (JS DYNAMIC)
+
+This section must be dynamically generated using JavaScript.
+
+Events must be defined in a JS array.
+
+Example structure:
+
+const events = [
+{
+title: "",
+date: "",
+description: "",
+image: ""
+}
+]
+
+Each event card includes:
+
+poster image
+event title
+date
+short description
+button: view details
+
+The layout must allow unlimited events.
+
+NOTICE BOARD SECTION
+
+Create a two-column notice board area.
+
+Column 1:
+
+IEEE Notices
+
+Examples:
+
+IEEE global announcements
+IEEE region announcements
+IEEE opportunities
+
+Column 2:
+
+Student Branch Notices
+
+Examples:
+
+upcoming meetings
+SB announcements
+member calls
+volunteer calls
+
+Each notice item includes:
+
+title
+date
+short description
+link
+
+These must also be JS-generated so notices can be added easily.
+
+PUBLICATIONS & RESEARCH HIGHLIGHTS
+
+This section makes the website look academic.
+
+Grid cards showing:
+
+Student Publications
+Faculty Publications
+Conference Papers
+Technical Projects
+
+Each card includes:
+
+paper title
+author names
+publication venue
+year
+PDF link
+
+PDFs must be stored in the assets/pdfs folder.
+
+FACULTY AFFILIATIONS SECTION
+
+This section highlights faculty connected to IEEE SB.
+
+Cards include:
+
+faculty photo
+name
+designation
+research area
+affiliation
+
+Example:
+
+Professor Name
+Faculty Advisor IEEE SB
+Research: AI, Robotics, Networks
+
+COMMUNITY / MEMBER HIGHLIGHTS
+
+Grid photo layout similar to the reference design.
+
+Shows:
+
+student activities
+workshops
+technical events
+community engagement
+
+Images from assets/images.
+
+VANITY STATISTICS SECTION
+
+Full width background image with overlay.
+
+Animated counters.
+
+Examples:
+
+150+ Members
+20+ Events Conducted
+5 Active Chapters
+1000+ Community Reach
+
+Counters animate when scrolled into view.
+
+JOIN IEEE SECTION
+
+Call to action block.
+
+Heading:
+
+Join IEEE
+
+Text:
+
+Become part of the world's largest professional organization advancing technology.
+
+Additional line:
+
+If you are a student of Amity University Kolkata, you can also become a part of the IEEE Student Branch.
+
+Buttons:
+
+Join IEEE
+Contact Us
+
+SOCIAL MEDIA LINKS
+
+Icons linking to:
+
+LinkedIn
+Instagram
+Email
+
+Hover animation required.
+
+FOOTER
+
+Dark professional footer.
+
+Columns:
+
+Quick Links
+Student Branch Info
+Contact Info
+Social Media
+
+Text:
+
+© IEEE Amity University Kolkata Student Branch
+
+ABOUT PAGE
+
+Sections:
+
+About IEEE Global
+About IEEE Region 10
+About IEEE India Council
+About IEEE Amity University Kolkata Student Branch
+
+Also include:
+
+Mission
+Vision
+Activities
+
+CHAPTERS PAGE
+
+Grid listing IEEE chapters.
+
+Each card contains:
+
+chapter logo
+chapter name
+description
+chairperson
+contact link
+
+EVENTS PAGE
+
+Two main sections:
+
+Upcoming Events
+Past Events
+
+Events loaded dynamically via JavaScript.
+
+Cards contain:
+
+poster
+title
+date
+description
+register button
+
+PUBLICATIONS PAGE
+
+Dedicated research page.
+
+Sections:
+
+Student Papers
+Faculty Papers
+Conference Publications
+Technical Reports
+
+Each entry includes:
+
+paper title
+authors
+conference/journal
+year
+PDF download link
+
+TEAM PAGE
+
+Grid of team members.
+
+Each card includes:
+
+photo
+name
+designation
+
+Example roles:
+
+Branch Chair
+Vice Chair
+Secretary
+Treasurer
+Webmaster
+Faculty Advisor
+
+Social icons:
+
+LinkedIn
+Instagram
+Email
+
+Hover animation reveals icons.
+
+SPONSORS PAGE
+
+This page lists organizations or companies that collaborated with IEEE AUK SB.
+
+Sections:
+
+Past Industry Collaborators
+University Collaborators
+Community Partners
+
+Display logos in grid.
+
+CONTACT PAGE
+
+Sections:
+
+Contact Form
+
+Fields:
+
+Name
+Email
+Message
+
+Also include:
+
+Email address
+Social media links
+Embedded Google Map of Amity University Kolkata
+
+JAVASCRIPT FEATURES
+
+Implement:
+
+Dynamic event cards
+Dynamic notices
+Animated statistics counters
+Navbar scroll shrink
+Mobile menu toggle
+Smooth scrolling
+Hover animations
+
+RESPONSIVENESS
+
+Website must work perfectly on:
+
+desktop
+tablet
+mobile
+
+Use:
+
+Flexbox
+CSS Grid
+
+FINAL DESIGN GOAL
+
+The website must look:
+
+professional
+technical
+academic
+clean
+modern
+
+Similar to a professional IEEE university chapter website.
