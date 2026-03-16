@@ -668,7 +668,14 @@ footer {
   font-family: 'Bebas Neue'; font-size: 1.8rem;
   color: var(--ieee-blue); letter-spacing: 0.04em; margin-top: -8px;
 }
-.org-content p { color: var(--text-mid); line-height: 1.8; margin-bottom: 16px; }
+.org-content p{
+  color: var(--text-mid);
+  line-height: 1.8;
+  margin-bottom: 16px;
+
+  text-align: justify;
+  text-justify: inter-word;
+}
 .org-content p:last-child { margin-bottom: 0; }
 .mission-vision { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 48px; }
 .mv-card {
@@ -805,21 +812,101 @@ background-image:url("../assets/about/outreach.jpg");
    CHAPTERS PAGE
    ============================================================ */
 .chapters-full-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 48px; }
-.chapter-full-card {
-  background: white; border-radius: var(--radius-lg);
-  border: 1px solid var(--border); overflow: hidden;
-  transition: var(--transition); box-shadow: var(--card-shadow);
+.chapter-full-card{
+  background:white;
+  border-radius:var(--radius-lg);
+  border:1px solid var(--border);
+  overflow:hidden;
+  transition:var(--transition);
+  box-shadow:var(--card-shadow);
+  position:relative;
 }
-.chapter-full-card:hover { transform: translateY(-6px); box-shadow: var(--card-hover); }
-.chapter-card-top {
-  padding: 32px; background: linear-gradient(135deg, var(--navy) 0%, #0d2e56 100%);
-  display: flex; align-items: center; gap: 20px;
+
+.chapter-full-card::before{
+  content:'';
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:3px;
+  background:var(--ieee-blue);
+  transform:scaleX(0);
+  transform-origin:left;
+  transition:var(--transition);
 }
-.chapter-logo-box {
-  width: 60px; height: 60px; border-radius: 12px;
-  background: rgba(255,255,255,0.1); display: flex;
-  align-items: center; justify-content: center; font-size: 1.8rem;
-  border: 1px solid rgba(255,255,255,0.15); flex-shrink: 0;
+
+.chapter-full-card:hover::before{
+  transform:scaleX(1);
+}
+
+.chapter-full-card:hover{
+  transform:translateY(-8px);
+  box-shadow:var(--card-hover);
+}
+.chapter-card-top{
+  padding:32px;
+  background:linear-gradient(
+      135deg,
+      var(--navy) 0%,
+      #0d2e56 100%
+  );
+
+  display:flex;
+  align-items:center;
+  gap:20px;
+
+  position:relative;
+  overflow:hidden;
+}
+
+.chapter-card-top::after{
+  content:'';
+  position:absolute;
+  right:-40px;
+  top:-40px;
+
+  width:120px;
+  height:120px;
+
+  background:radial-gradient(
+      circle,
+      rgba(0,174,239,0.25),
+      transparent 70%
+  );
+}
+.chapter-logo-box{
+  width:64px;
+  height:64px;
+  border-radius:14px;
+
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(8px);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border:1px solid rgba(255,255,255,0.2);
+
+  transition:var(--transition);
+}
+
+.chapter-full-card:hover .chapter-logo-box{
+  transform:scale(1.08);
+  background:rgba(255,255,255,0.15);
+}
+.chapter-card-body p{
+  font-size:0.85rem;
+  color:var(--text-mid);
+  line-height:1.7;
+}
+
+.chapter-meta-item .key{
+  font-weight:500;
+}
+
+.chapter-meta-item .val{
+  font-weight:600;
 }
 .chapter-card-top h3 { font-family: 'Bebas Neue'; font-size: 1.3rem; letter-spacing: 0.04em; color: white; }
 .chapter-card-top .chapter-abbr { font-family: 'IBM Plex Mono'; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; }
@@ -843,7 +930,16 @@ background-image:url("../assets/about/outreach.jpg");
 /* ============================================================
    EVENTS PAGE
    ============================================================ */
-.events-filter { display: flex; gap: 10px; flex-wrap: wrap; margin: 32px 0 0; }
+.events-header{
+  background:
+    linear-gradient(rgba(11,31,58,0.85), rgba(11,31,58,0.92)),
+    url("../assets/bg-image/events-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+   .events-filter { display: flex; gap: 10px; flex-wrap: wrap; margin: 32px 0 0; }
 .filter-btn {
   padding: 8px 18px; border-radius: 40px; font-size: 0.82rem;
   font-weight: 500; border: 1.5px solid var(--border); color: var(--text-mid);
@@ -864,7 +960,10 @@ background-image:url("../assets/about/outreach.jpg");
   background: linear-gradient(135deg, var(--navy), var(--ieee-blue));
   position: relative; display: flex; align-items: center; justify-content: center;
 }
-.efc-img img { width: 100%; height: 100%; object-fit: cover; }
+.efc-img img { width: 100%; height: 100%; object-fit: cover; transition:0.6s ease; }
+.event-full-card:hover .efc-img img{
+  transform:scale(1.08);
+}
 .efc-badge {
   position: absolute; top: 16px; right: 16px;
   background: var(--accent); color: white;
@@ -878,6 +977,97 @@ background-image:url("../assets/about/outreach.jpg");
 .efc-body p { font-size: 0.82rem; color: var(--text-light); margin-bottom: 20px; line-height: 1.6; }
 .efc-footer { display: flex; justify-content: space-between; align-items: center; }
 .efc-venue { font-size: 0.75rem; color: var(--text-light); }
+.filter-btn{
+  transition:all 0.25s ease;
+}
+
+.filter-btn:hover{
+  transform:translateY(-2px);
+}
+
+/* EVENT MODAL */
+
+.event-modal{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.65);
+display:none;
+align-items:center;
+justify-content:center;
+z-index:2000;
+padding:40px;
+}
+
+.event-modal.open{
+display:flex;
+}
+
+.event-modal-box{
+width:70%;
+max-width:1000px;
+max-height:85vh;
+background:white;
+border-radius:14px;
+overflow:auto;
+box-shadow:0 40px 80px rgba(0,0,0,0.45);
+position:relative;
+padding:40px;
+}
+
+#event-modal-close{
+position:absolute;
+top:18px;
+right:18px;
+font-size:22px;
+cursor:pointer;
+color:#666;
+}
+
+.event-gallery{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:24px;
+}
+
+.event-gallery img{
+width:100%;
+border-radius:8px;
+}
+
+.event-videos video{
+width:100%;
+margin-top:16px;
+border-radius:8px;
+}
+
+.event-meta{
+font-size:0.85rem;
+color:#666;
+margin-bottom:16px;
+}
+
+.event-reg{
+margin:20px 0;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+.event-modal-box{
+width:95%;
+padding:24px;
+}
+
+.event-gallery{
+grid-template-columns:1fr;
+}
+
+}
+.event-full-card{
+cursor:pointer;
+}
 
 /* ============================================================
    PUBLICATIONS PAGE

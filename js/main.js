@@ -3,78 +3,102 @@
    Features: Dynamic events, notices, stats, navbar, gallery
    ============================================================ */
 const events = [
-  {
-    id: 1,
-    title: "IEEE Xtreme 18.0 Hackathon",
-    date: "2025-10-26",
-    displayDate: "26 Oct 2025",
-    description: "Join the world's most intense 24-hour programming competition. Team up, solve problems, and compete globally.",
-    image: "",
-    category: "Competition",
-    venue: "Amity University Kolkata, Lab Complex",
-    status: "upcoming",
-    registerLink: "#"
-  },
-  {
-    id: 2,
-    title: "Workshop on Machine Learning & Deep Learning",
-    date: "2025-09-15",
-    displayDate: "15 Sep 2025",
-    description: "A two-day intensive hands-on workshop covering ML fundamentals, neural networks, and real-world applications.",
-    image: "",
-    category: "Workshop",
-    venue: "Seminar Hall, AUK",
-    status: "upcoming",
-    registerLink: "#"
-  },
-  {
-    id: 3,
-    title: "Industry Connect: Emerging Tech Careers",
-    date: "2025-08-20",
-    displayDate: "20 Aug 2025",
-    description: "Panel discussion with industry leaders from Google, TCS, and Infosys on career paths in emerging technologies.",
-    image: "",
-    category: "Seminar",
-    venue: "Auditorium, AUK",
-    status: "upcoming",
-    registerLink: "#"
-  },
-  {
-    id: 4,
-    title: "Robotics Workshop: Build & Program",
-    date: "2025-03-12",
-    displayDate: "12 Mar 2025",
-    description: "Participants built and programmed Arduino-based robots in this hands-on weekend workshop.",
-    image: "",
-    category: "Workshop",
-    venue: "Robotics Lab, AUK",
-    status: "past",
-    registerLink: null
-  },
-  {
-    id: 5,
-    title: "WIE Empowerment Seminar 2025",
-    date: "2025-02-28",
-    displayDate: "28 Feb 2025",
-    description: "IEEE Women in Engineering chapter hosted a career empowerment seminar with prominent women tech leaders.",
-    image: "",
-    category: "Seminar",
-    venue: "Conference Hall, AUK",
-    status: "past",
-    registerLink: null
-  },
-  {
-    id: 6,
-    title: "Signal Processing Symposium",
-    date: "2025-01-18",
-    displayDate: "18 Jan 2025",
-    description: "Technical symposium covering DSP, image processing, and speech recognition with demos from final-year students.",
-    image: "",
-    category: "Symposium",
-    venue: "Electronics Lab Complex, AUK",
-    status: "past",
-    registerLink: null
-  }
+{
+id:1,
+title:"AICSSYC - All India Computer Society Student & Young Professional Congress 2025",
+date:"2025-09-01",
+displayDate:"01 Sep 2025",
+description:"A global meet for All India Computer Society student members with coding contests, tech talks and networking opportunities.",
+category:"Seminar",
+venue:"Amity University Kolkata, Auditorium",
+status:"past",
+image:"assets/events/aicssyc/thumbnail.jpeg",
+folder:"aicssyc",
+registration:{
+status:"past",
+link:"#"
+}
+},
+{
+id:2,
+title:"Workshop on Machine Learning & Deep Learning",
+date:"2025-09-15",
+displayDate:"15 Sep 2025",
+description:"A two-day intensive hands-on workshop covering ML fundamentals, neural networks, and real-world applications.",
+category:"Workshop",
+venue:"Seminar Hall, AUK",
+status:"upcoming",
+image:"assets/events/ml-workshop/thumbnail.jpg",
+folder:"ml-workshop",
+registration:{
+status:"open",
+link:"#"
+}
+},
+{
+id:3,
+title:"Industry Connect: Emerging Tech Careers",
+date:"2025-08-20",
+displayDate:"20 Aug 2025",
+description:"Panel discussion with industry leaders from Google, TCS, and Infosys on career paths in emerging technologies.",
+category:"Seminar",
+venue:"Auditorium, AUK",
+status:"upcoming",
+image:"assets/events/industry-connect/thumbnail.jpg",
+folder:"industry-connect",
+registration:{
+status:"open",
+link:"#"
+}
+},
+{
+id:4,
+title:"Robotics Workshop: Build & Program",
+date:"2025-03-12",
+displayDate:"12 Mar 2025",
+description:"Participants built and programmed Arduino-based robots in this hands-on weekend workshop.",
+category:"Workshop",
+venue:"Robotics Lab, AUK",
+status:"past",
+image:"assets/events/robotics-workshop/thumbnail.jpg",
+folder:"robotics-workshop",
+registration:{
+status:"past",
+link:null
+}
+},
+{
+id:5,
+title:"WIE Empowerment Seminar 2025",
+date:"2025-02-28",
+displayDate:"28 Feb 2025",
+description:"IEEE Women in Engineering chapter hosted a career empowerment seminar with prominent women tech leaders.",
+category:"Seminar",
+venue:"Conference Hall, AUK",
+status:"past",
+image:"assets/events/wie-seminar/thumbnail.jpg",
+folder:"wie-seminar",
+registration:{
+status:"past",
+link:null
+}
+},
+{
+id:6,
+title:"Signal Processing Symposium",
+date:"2025-01-18",
+displayDate:"18 Jan 2025",
+description:"Technical symposium covering DSP, image processing, and speech recognition with demos from final-year students.",
+category:"Symposium",
+venue:"Electronics Lab Complex, AUK",
+status:"past",
+image:"assets/events/signal-symposium/thumbnail.jpg",
+folder:"signal-symposium",
+registration:{
+status:"past",
+link:null
+}
+}
 ];
 
 // ── Data: Notices ──────────────────────────────────────────────
@@ -431,7 +455,7 @@ function renderFullEvents() {
     });
 
     container.innerHTML = filtered.length ? filtered.map(ev => `
-      <div class="event-full-card fade-up">
+      <div class="event-full-card fade-up" data-event-id="${ev.id}">
         <div class="efc-img">
           ${ev.image ? `<img src="${ev.image}" alt="${ev.title}">` : `
             <div style="text-align:center;color:rgba(255,255,255,0.5);">
@@ -446,7 +470,7 @@ function renderFullEvents() {
           <p>${ev.description}</p>
           <div class="efc-footer">
             <span class="efc-venue">📍 ${ev.venue}</span>
-            ${ev.registerLink ? `<a href="${ev.registerLink}" class="btn btn-primary btn-sm">Register →</a>` : '<span class="btn btn-sm" style="opacity:0.4;cursor:default">Event Ended</span>'}
+            <button class="btn btn-sm btn-outline-dark"> View Details → </button>
           </div>
         </div>
       </div>
@@ -465,7 +489,162 @@ function renderFullEvents() {
   });
 
   renderFiltered();
+  container.addEventListener('click', e => {
+  const card = e.target.closest('.event-full-card[data-event-id]');
+  if (!card) return;
+  const ev = events.find(ev => ev.id === Number(card.dataset.eventId));
+  if (ev) openEventModal(ev.folder, ev.registration);
+});
 }
+/* ============================================================
+EVENT MODAL SYSTEM
+============================================================ */
+
+function openEventModal(folder, reg){
+
+const modal = document.getElementById("event-modal");
+const modalContent = document.getElementById("event-modal-content");
+
+modal.classList.add("open");
+
+/* Load event description */
+
+fetch(`assets/events/${folder}/description.html`)
+.then(res => res.text())
+.then(desc => {
+
+modalContent.innerHTML = `
+<div class="event-description">
+
+${desc}
+
+</div>
+
+<div class="event-reg">
+
+${renderRegistration(reg)}
+
+</div>
+
+<div id="event-media"></div>
+`;
+
+loadEventMedia(folder);
+
+});
+
+}
+
+
+/* ============================================================
+REGISTRATION BUTTON LOGIC
+============================================================ */
+
+function renderRegistration(reg){
+
+if(!reg) return "";
+
+if(reg.status === "open"){
+return `
+<a href="${reg.link}" target="_blank" class="btn btn-primary">
+Register Now →
+</a>
+`;
+}
+
+if(reg.status === "closed"){
+return `
+<button class="btn btn-outline-dark" disabled>
+Registration Closed
+</button>
+`;
+}
+
+if(reg.status === "past"){
+return `
+<button class="btn btn-outline-dark" disabled>
+Event Completed
+</button>
+`;
+}
+
+return "";
+
+}
+
+
+/* ============================================================
+LOAD EVENT IMAGES & VIDEOS
+============================================================ */
+
+function loadEventMedia(folder){
+
+const mediaContainer = document.getElementById("event-media");
+
+let imagesHTML = `
+<h3 style="margin-top:20px;">Event Gallery</h3>
+<div class="event-gallery">
+`;
+
+for(let i=1;i<=10;i++){
+
+imagesHTML += `
+<img src="assets/events/${folder}/images/${i}.jpg"
+onerror="this.style.display='none'">
+`;
+
+}
+
+imagesHTML += `</div>`;
+
+
+/* Videos */
+
+let videosHTML = `
+<div class="event-videos">
+`;
+
+for(let i=1;i<=5;i++){
+
+videosHTML += `
+<video controls
+src="assets/events/${folder}/videos/${i}.mp4"
+onerror="this.style.display='none'"></video>
+`;
+
+}
+
+videosHTML += `</div>`;
+
+mediaContainer.innerHTML = imagesHTML + videosHTML;
+
+}
+
+
+/* ============================================================
+MODAL CLOSE BEHAVIOR
+============================================================ */
+
+document.getElementById("event-modal-close").onclick = function(){
+
+document.getElementById("event-modal").classList.remove("open");
+
+};
+
+
+/* close modal if clicking outside */
+
+window.onclick = function(e){
+
+const modal = document.getElementById("event-modal");
+
+if(e.target === modal){
+
+modal.classList.remove("open");
+
+}
+
+};
 
 // ── Render Full Chapters Page ─────────────────────────────────
 
