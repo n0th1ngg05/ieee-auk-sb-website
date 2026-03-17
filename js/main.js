@@ -2,6 +2,54 @@
    IEEE AUK SB — Main JavaScript
    Features: Dynamic events, notices, stats, navbar, gallery
    ============================================================ */
+function handleImageFallback(img){
+  img.onerror = null; // prevent infinite loop
+  img.src = "assets/default.png";
+}
+function initAll(){
+  const modal = document.getElementById("event-modal");
+  if(modal){
+    modal.addEventListener("click", function(e){
+      if(e.target.id === "event-modal"){
+        closeEventModal();
+      }
+    });
+    // Close button — safe to bind here since DOM is ready
+    const closeBtn = document.getElementById("event-modal-close");
+    if(closeBtn) closeBtn.onclick = closeEventModal;
+  }
+  setActiveNav();
+  initNavbar();
+  initCounters();
+  renderHomeEvents();
+  renderHomeNotices();
+  renderHomePubs();
+  renderFullEvents();
+  renderChapters();
+  renderFullPublications();
+  renderTeam();
+  renderSponsors();
+  initContactForm();
+  initSmoothScroll();
+  initFadeAnimations();
+  if(window.lucide){
+    lucide.createIcons();
+  }
+}
+
+// ── Init ──────────────────────────────────────────────────────
+// Swup must be initialised AFTER DOMContentLoaded so its CDN
+// script (loaded after main.js) has already executed.
+document.addEventListener("DOMContentLoaded", () => {
+  initAll();
+  if(typeof Swup !== "undefined"){
+    const swupInstance = new Swup();
+    // Re-run all renderers on every Swup page transition
+    swupInstance.hooks.on("page:view", () => {
+      initAll();
+    });
+  }
+});
 const events = [
 {
 id:1,
@@ -309,6 +357,7 @@ students: [
 {
 name: "Subhajeet Biswas",
 role: "Chairperson",
+membershipId: "ID - 101498875",
 image: "assets/team/students/subhajeet.jpeg",
 linkedin: "https://www.linkedin.com/in/subhajeet-biswas-045a28283?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
 instagram: "https://www.instagram.com/_subhajeetbiswas_/?__pwa=1#",
@@ -317,6 +366,7 @@ email: "subhajeet2005@gmail.com"
 {
 name: "Sowhardya Biswas",
 role: "Vice-Chairperson",
+membershipId: "ID - 101508490",
 image: "assets/team/students/sowhardya.jpeg",
 linkedin: "https://www.linkedin.com/in/sowhardya-biswas-5abbb3205?utm_source=share_via&utm_content=profile&utm_medium=member_android",
 instagram: "https://www.instagram.com/sowhardya_biswas/?__pwa=1#",
@@ -325,29 +375,72 @@ email: "sowhardya.biswas2003@gmail.com"
 {
 name: "Suhana Paul",
 role: "Secretary",
+membershipId: "ID - 101493002",
 image: "assets/team/students/suhana.jpeg",
 linkedin: "https://www.linkedin.com/in/suhana-p-3b979a26b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-instagram: "#",
+// instagram: "#",
 email: "suhanapaul95@gmail.com"
 },
 {
 name: "Soumyadeep Mondal",
 role: "Treasurer",
+membershipId: "ID - 101496609",
 image: "assets/team/students/soumyadeep.jpeg",
 linkedin: "https://www.linkedin.com/in/soumyadeep-mondal-dev?utm_source=share_via&utm_content=profile&utm_medium=member_android",
-instagram: "#",
+instagram: "https://www.instagram.com/deep_the.confused?igsh=bHRjNDZldmJmNzEx",
 email: "karan@student.amity.edu"
 },
 {
 name: "Humza Ahmad",
 role: "Webmaster",
+membershipId: "ID - 101495949",
 image: "assets/team/students/humza.jpg",
 linkedin: "www.linkedin.com/in/humza-ahmad-n0th1ng",
 instagram: "https://www.instagram.com/itz__hu_mz.a_a/?__pwa=1#",
 email: "humza.ahmad050504@gmail.com"
 }
 ]
+};
 
+const sponsors = {
+  industry: [
+    {
+      name: "n0th1ng Studios",
+      logo: "assets/sponsor/n0th1ng.png",
+      tier: "Event Management",
+      description: "Event Management partner for events, including AICSSYC 2025."
+    }
+    // {
+    //   name: "Tata Consultancy Services",
+    //   logo: "assets/sponsor/tcs.png",
+    //   tier: "Title Sponsor",
+    //   description: "Industry mentorship and workshop support for students."
+    // },
+    // {
+    //   name: "Infosys",
+    //   logo: "assets/sponsor/infosys.webp",
+    //   tier: "Gold Sponsor",
+    //   description: "Technology education and outreach program sponsor."
+    // }
+  ],
+
+  university: [
+    {
+      name: "Jadavpur University",
+      logo: "assets/sponsor/jadavpur.png",
+      tier: "Event Co-Host",
+      description: "Joint technical seminars and research collaboration for AICSSYC 2025."
+    }
+  ],
+
+  community: [
+    // {
+    //   name: "STEM India",
+    //   logo: "assets/sponsor/stem.png",
+    //   tier: "Community Partner",
+    //   description: "STEM outreach and school education programs."
+    // }
+  ]
 };
 
 
@@ -417,16 +510,19 @@ function initCounters() {
 }
 
 // ── Fade-up Scroll Animations ─────────────────────────────────
-function initFadeAnimations() {
-  const elements = document.querySelectorAll('.fade-up');
+function initFadeAnimations(){
+
+  const elements = document.querySelectorAll(".fade-up");
+
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+      if(entry.isIntersecting){
+        entry.target.classList.add("show");
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, {
+    threshold: 0.1
+  });
 
   elements.forEach(el => observer.observe(el));
 }
@@ -440,7 +536,7 @@ function renderHomeEvents() {
   container.innerHTML = upcomingEvents.map(ev => `
     <div class="event-card fade-up">
       <div class="event-card-img">
-        ${ev.image ? `<img src="${ev.image}" alt="${ev.title}">` : `
+        ${ev.image ? `<img src="${ev.image}" alt="${ev.title}" loading="lazy" onerror="handleImageFallback(this)">` : `
           <div style="text-align:center;color:rgba(255,255,255,0.5);">
             <div style="font-size:2.5rem;">📡</div>
             <div style="font-family:'IBM Plex Mono';font-size:0.7rem;letter-spacing:0.1em;margin-top:8px;text-transform:uppercase">${ev.category}</div>
@@ -526,7 +622,7 @@ function renderFullEvents() {
     container.innerHTML = filtered.length ? filtered.map(ev => `
       <div class="event-full-card fade-up" data-event-id="${ev.id}">
         <div class="efc-img">
-          ${ev.image ? `<img src="${ev.image}" alt="${ev.title}">` : `
+          ${ev.image ? `<img src="${ev.image}" alt="${ev.title}" loading="lazy" onerror="handleImageFallback(this)">` : `
             <div style="text-align:center;color:rgba(255,255,255,0.5);">
               <div style="font-size:3rem;">📡</div>
             </div>
@@ -575,6 +671,7 @@ const modal = document.getElementById("event-modal");
 const modalContent = document.getElementById("event-modal-content");
 
 modal.classList.add("open");
+document.body.style.overflow = "hidden";
 
 /* Load event description */
 
@@ -602,6 +699,13 @@ loadEventMedia(folder);
 
 });
 
+}
+function closeEventModal(){
+  const modal = document.getElementById("event-modal");
+  modal.classList.remove("open");
+
+  // restore scroll
+  document.body.style.overflow = "auto";
 }
 
 
@@ -658,8 +762,8 @@ let imagesHTML = `
 for(let i=1;i<=10;i++){
 
 imagesHTML += `
-<img src="assets/events/${folder}/images/${i}.jpg"
-onerror="this.style.display='none'">
+<img src="assets/events/${folder}/images/${i}.jpg" loading="lazy"
+onerror="handleImageFallback(this)">
 `;
 
 }
@@ -691,30 +795,14 @@ mediaContainer.innerHTML = imagesHTML + videosHTML;
 
 
 /* ============================================================
-MODAL CLOSE BEHAVIOR
+MODAL BEHAVIOR — close on outside click (safe top-level listener)
 ============================================================ */
-
-const _modalCloseBtn = document.getElementById("event-modal-close");
-if (_modalCloseBtn) {
-  _modalCloseBtn.onclick = function(){
-    document.getElementById("event-modal").classList.remove("open");
-  };
-}
-
-
-/* close modal if clicking outside */
-
-window.onclick = function(e){
-
-const modal = document.getElementById("event-modal");
-
-if(e.target === modal){
-
-modal.classList.remove("open");
-
-}
-
-};
+window.addEventListener("click", function(e){
+  const modal = document.getElementById("event-modal");
+  if(modal && e.target === modal){
+    closeEventModal();
+  }
+});
 
 // ── Render Full Chapters Page ─────────────────────────────────
 
@@ -730,7 +818,7 @@ container.innerHTML = chapters.map(ch => `
 <div class="chapter-card-top">
 
 <div class="chapter-logo-box">
-<img src="${ch.logo}" alt="${ch.abbr}" style="width:36px;height:36px;object-fit:contain;">
+<img src="${ch.logo}" alt="${ch.abbr}" style="width:36px;height:36px;object-fit:contain;" loading="lazy" onerror="handleImageFallback(this)">
 </div>
 
 <div>
@@ -843,7 +931,7 @@ if(!facultyContainer || !studentContainer) return;
 facultyContainer.innerHTML = team.faculty.map(member => `
 <div class="team-card fade-up">
 <div class="team-card-top">
-  <img src="${member.image}" alt="${member.name}" class="team-photo">
+  <img src="${member.image}" alt="${member.name}" class="team-photo" loading="lazy" onerror="handleImageFallback(this)">
 </div>
 <div class="team-card-body">
   <h4>${member.name}</h4>
@@ -861,20 +949,78 @@ facultyContainer.innerHTML = team.faculty.map(member => `
 studentContainer.innerHTML = team.students.map(member => `
 <div class="team-card fade-up">
 <div class="team-card-top">
-  <img src="${member.image}" alt="${member.name}" class="team-photo">
+  <img src="${member.image}" alt="${member.name}" class="team-photo" loading="lazy" onerror="handleImageFallback(this)">
 </div>
 <div class="team-card-body">
   <h4>${member.name}</h4>
   <div class="role">${member.role}</div>
+  <div class="member-id">${member.membershipId || ''}</div>
 
   <div class="team-socials">
-    ${member.linkedin ? `<a href="${member.linkedin}" target="_blank"><i data-lucide="linkedin"></i></a>` : ''}
-    ${member.instagram ? `<a href="${member.instagram}" target="_blank"><i data-lucide="instagram"></i></a>` : ''}
-    ${member.email ? `<a href="mailto:${member.email}"><i data-lucide="mail"></i></a>` : ''}
+    ${
+      (member.linkedin || member.instagram || member.email) ? `
+      <div class="team-socials">
+
+      ${member.linkedin ? `<a href="${member.linkedin}" target="_blank"><i data-lucide="linkedin"></i></a>` : ''}
+
+      ${member.instagram ? `<a href="${member.instagram}" target="_blank"><i data-lucide="instagram"></i></a>` : ''}
+
+      ${member.email ? `<a href="mailto:${member.email}"><i data-lucide="mail"></i></a>` : ''}
+
+    </div>
+    ` : ''
+    }
   </div>
 </div>
 </div>
 `).join("");
+}
+
+// -- Sponsors Page ------------------
+function renderSponsors(){
+
+  const industryContainer = document.getElementById("industry-sponsors");
+  const universityContainer = document.getElementById("university-sponsors");
+  const communityContainer = document.getElementById("community-sponsors");
+
+  function createCard(sponsor, delayClass=""){
+
+    return `
+    <div class="sponsor-card fade-up ${delayClass}">
+
+      <div class="sponsor-logo-box">
+        ${sponsor.logo ? `<img src="${sponsor.logo}" alt="${sponsor.name}" loading="lazy" onerror="handleImageFallback(this)">` : '🏢'}
+      </div>
+
+      <div class="sponsor-tier">${sponsor.tier}</div>
+
+      <h4>${sponsor.name}</h4>
+
+      <p>${sponsor.description}</p>
+
+    </div>
+    `;
+  }
+
+  if(industryContainer){
+    industryContainer.innerHTML = sponsors.industry.map((s,i)=>
+      createCard(s, `fade-up-delay-${i%4}`)
+    ).join('');
+  }
+
+  if(universityContainer){
+    universityContainer.innerHTML = sponsors.university.map((s,i)=>
+      createCard(s, `fade-up-delay-${i%4}`)
+    ).join('');
+  }
+
+  if(communityContainer){
+    communityContainer.innerHTML = sponsors.community.map((s,i)=>
+      createCard(s, `fade-up-delay-${i%4}`)
+    ).join('');
+  }
+
+  initFadeAnimations();
 }
 
 // ── Contact Form ───────────────────────────────────────────────
@@ -919,22 +1065,29 @@ function initSmoothScroll() {
   });
 }
 
-// ── Init ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', () => {
-  initNavbar();
-  initCounters();
-  initFadeAnimations();
-  renderHomeEvents();
-  renderHomeNotices();
-  renderHomePubs();
-  renderFullEvents();
-  renderChapters();
-  renderFullPublications();
-  renderTeam();
-  lucide.createIcons();
-  initContactForm();
-  initSmoothScroll();
-  renderHomeEvents();
-  renderHomeNotices();
-  renderHomePubs();
-});
+function setActiveNav(){
+
+  const currentPath = window.location.pathname.split("/").pop();
+
+  const links = document.querySelectorAll(".nav-links a");
+
+  links.forEach(link => {
+
+    const linkPath = link.getAttribute("href");
+
+    // remove all active first
+    link.classList.remove("active");
+
+    // match current page
+    if(linkPath === currentPath){
+      link.classList.add("active");
+    }
+
+    // special case for home
+    if(currentPath === "" && linkPath === "index.html"){
+      link.classList.add("active");
+    }
+
+  });
+
+}
