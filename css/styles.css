@@ -1129,40 +1129,230 @@ margin-bottom:16px;
 .pub-entry-content .pub-venue { font-size: 0.8rem; color: var(--text-light); font-style: italic; }
 .pub-entry-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
 
+/* PUBLICATION ITEMS */
+
+.pub-item{
+background:white;
+border:1px solid var(--border);
+border-radius:12px;
+padding:24px;
+margin-top:20px;
+transition:var(--transition);
+}
+
+.pub-item:hover{
+transform:translateY(-4px);
+box-shadow:var(--card-hover);
+}
+
+.pub-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.pub-type{
+font-size:0.7rem;
+letter-spacing:0.1em;
+color:var(--accent);
+font-family:'IBM Plex Mono';
+}
+
+.pub-year{
+font-size:0.75rem;
+color:var(--text-light);
+}
+
+.pub-title{
+font-size:1.05rem;
+font-weight:700;
+color:var(--navy);
+margin-bottom:8px;
+line-height:1.4;
+}
+
+.pub-authors{
+font-size:0.85rem;
+color:var(--text-mid);
+margin-bottom:6px;
+}
+
+.pub-venue{
+font-size:0.8rem;
+color:var(--text-light);
+margin-bottom:14px;
+}
+
+.pub-actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+}
+
+.pub-item::before{
+content:'';
+position:absolute;
+top:0;
+left:0;
+width:4px;
+height:100%;
+background:var(--ieee-blue);
+border-radius:12px 0 0 12px;
+opacity:0;
+transition:var(--transition);
+}
+
+.pub-item{
+position:relative;
+}
+
+.pub-item:hover::before{
+opacity:1;
+}
 /* ============================================================
    TEAM PAGE
    ============================================================ */
-.team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 48px; }
-.team-card {
-  background: white; border-radius: var(--radius-lg);
-  border: 1px solid var(--border); overflow: hidden;
-  text-align: center; transition: var(--transition);
-  box-shadow: var(--card-shadow);
+  .tean-header{
+  background:
+    linear-gradient(rgba(11,31,58,0.85), rgba(11,31,58,0.92)),
+    url("../assets/bg-image/team-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
-.team-card:hover { transform: translateY(-6px); box-shadow: var(--card-hover); }
-.team-card-top {
-  background: linear-gradient(135deg, var(--navy) 0%, var(--ieee-blue) 100%);
-  padding: 32px 20px 20px; position: relative;
+
+
+
+/* TEAM SECTIONS */
+
+.team-section{
+padding:80px 0;
 }
-.team-photo {
-  width: 96px; height: 96px; border-radius: 50%;
-  background: rgba(255,255,255,0.15);
-  border: 3px solid rgba(255,255,255,0.3);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 2.2rem; margin: 0 auto;
+
+.faculty-section{
+background:var(--bg-light);
 }
-.team-card-body { padding: 20px; }
-.team-card-body h4 { font-size: 0.97rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
-.team-card-body .role { font-size: 0.78rem; color: var(--ieee-blue); font-weight: 600; margin-bottom: 16px; }
-.team-socials { display: flex; justify-content: center; gap: 10px; }
-.team-socials a {
-  width: 32px; height: 32px; border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--bg-light); color: var(--text-mid);
-  font-size: 0.85rem; transition: var(--transition);
-  border: 1px solid var(--border);
+
+.student-section{
+background:white;
 }
-.team-socials a:hover { background: var(--ieee-blue); color: white; border-color: var(--ieee-blue); }
+
+.team-heading{
+margin-bottom:50px;
+}
+
+.team-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:28px;
+margin-top:40px;
+}
+
+.team-card{
+background:white;
+border-radius:14px;
+overflow:hidden;
+border:1px solid var(--border);
+transition:var(--transition);
+position:relative;
+}
+
+.team-card:hover{
+transform:translateY(-6px);
+box-shadow:var(--card-hover);
+}
+
+.team-card-top{
+height:220px;
+background:linear-gradient(135deg,var(--navy),var(--ieee-blue));
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+position:relative;
+}
+
+.team-photo{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:var(--transition);
+}
+
+.team-card:hover .team-photo{
+transform:scale(1.05);
+}
+
+/* Faculty = subtle + formal */
+
+.faculty-section .team-card{
+border-top:4px solid var(--ieee-blue);
+}
+
+/* Students = accent + energetic */
+
+.student-section .team-card{
+border-top:4px solid var(--accent);
+}
+
+.team-card-body{
+padding:20px;
+text-align:center;
+}
+
+.team-card-body h4{
+font-size:1rem;
+font-weight:700;
+color:var(--navy);
+margin-bottom:6px;
+}
+
+.team-card-body .role{
+font-size:0.8rem;
+color:var(--text-light);
+margin-bottom:14px;
+}
+.team-socials{
+display:flex;
+justify-content:center;
+gap:12px;
+}
+
+.team-socials i{
+width:16px;
+height:16px;
+}
+
+.team-socials a{
+width:34px;
+height:34px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+background:var(--bg-light);
+font-size:0.9rem;
+transition:var(--transition);
+}
+
+.team-socials a:hover{
+background:var(--ieee-blue);
+color:white;
+}
+
+@media(max-width:1024px){
+.team-grid{
+grid-template-columns:repeat(2,1fr);
+}
+}
+
+@media(max-width:600px){
+.team-grid{
+grid-template-columns:1fr;
+}
+}
 
 /* ============================================================
    SPONSORS PAGE

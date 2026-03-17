@@ -279,7 +279,76 @@ const publications = [
   }
 ];
 
+const team = {
 
+faculty: [
+{
+name: "Dr. Rekha Vig",
+role: "HOI, Amity School of Engineering & Technology",
+image: "assets/team/faculty/rekha.png",
+linkedin: "https://www.linkedin.com/in/dr-rekha-vig-1b23336/",
+email: "rvig@kol.amity.edu"
+},
+{
+name: "Dr. Pronaya Bhattacharya",
+role: "HOD, Computer Science & Engineering",
+image: "assets/team/faculty/pronaya.png",
+linkedin: "https://www.linkedin.com/in/dr-pronaya-bhattacharya-24418947/",
+email: "pbhattacharya@kol.amity.edu"
+},
+{
+name: "Prof. Subhash Mondal",
+role: "Faculty Advisor, IEEE",
+image: "assets/team/faculty/subhash.jpg",
+linkedin: "#",
+email: "smondal@kol.amity.edu"
+}
+],
+
+students: [
+{
+name: "Subhajeet Biswas",
+role: "Chairperson",
+image: "assets/team/students/subhajeet.jpeg",
+linkedin: "https://www.linkedin.com/in/subhajeet-biswas-045a28283?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+instagram: "https://www.instagram.com/_subhajeetbiswas_/?__pwa=1#",
+email: "subhajeet2005@gmail.com"
+},
+{
+name: "Sowhardya Biswas",
+role: "Vice-Chairperson",
+image: "assets/team/students/sowhardya.jpeg",
+linkedin: "https://www.linkedin.com/in/sowhardya-biswas-5abbb3205?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+instagram: "https://www.instagram.com/sowhardya_biswas/?__pwa=1#",
+email: "sowhardya.biswas2003@gmail.com"
+},
+{
+name: "Suhana Paul",
+role: "Secretary",
+image: "assets/team/students/suhana.jpeg",
+linkedin: "https://www.linkedin.com/in/suhana-p-3b979a26b?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+instagram: "#",
+email: "suhanapaul95@gmail.com"
+},
+{
+name: "Soumyadeep Mondal",
+role: "Treasurer",
+image: "assets/team/students/soumyadeep.jpeg",
+linkedin: "https://www.linkedin.com/in/soumyadeep-mondal-dev?utm_source=share_via&utm_content=profile&utm_medium=member_android",
+instagram: "#",
+email: "karan@student.amity.edu"
+},
+{
+name: "Humza Ahmad",
+role: "Webmaster",
+image: "assets/team/students/humza.jpg",
+linkedin: "www.linkedin.com/in/humza-ahmad-n0th1ng",
+instagram: "https://www.instagram.com/itz__hu_mz.a_a/?__pwa=1#",
+email: "humza.ahmad050504@gmail.com"
+}
+]
+
+};
 
 
 // ── Navbar Scroll Shrink ───────────────────────────────────────
@@ -727,21 +796,25 @@ function renderFullPublications() {
       return p.type.toLowerCase().includes(currentType.toLowerCase());
     });
 
-    container.innerHTML = filtered.map((p, i) => `
-      <div class="pub-entry fade-up">
-        <div class="pub-entry-num">${String(i + 1).padStart(2, '0')}</div>
-        <div class="pub-entry-content">
-          <span class="pub-tag">${p.type}</span>
-          <h3>${p.title}</h3>
-          <div class="pub-authors">👤 ${p.authors}</div>
-          <div class="pub-venue">📚 ${p.venue}</div>
-          <div class="pub-entry-actions">
-            <a href="${p.pdf}" target="_blank" class="btn btn-primary btn-sm">⬇ Download PDF</a>
-            <a href="${p.doi}" target="_blank" class="btn btn-outline-dark btn-sm">DOI ↗</a>
-          </div>
-        </div>
-      </div>
-    `).join('');
+    container.innerHTML = filtered.map(pub => `
+<div class="pub-item fade-up">
+  <div class="pub-header">
+    <span class="pub-type">${pub.type}</span>
+    <span class="pub-year">${pub.year}</span>
+  </div>
+  <h3 class="pub-title">${pub.title}</h3>
+  <p class="pub-authors">${pub.authors}</p>
+  <p class="pub-venue">${pub.venue}</p>
+  <div class="pub-actions">
+    <a href="${pub.pdf}" target="_blank" class="btn btn-sm btn-primary">
+      View PDF →
+    </a>
+    <a href="${pub.doi}" target="_blank" class="btn btn-sm btn-outline-dark">
+      DOI →
+    </a>
+  </div>
+</div>
+`).join('');
 
     initFadeAnimations();
   }
@@ -756,6 +829,52 @@ function renderFullPublications() {
   });
 
   renderPubs();
+}
+
+// --Team Page ------------------
+function renderTeam(){
+
+const facultyContainer = document.getElementById("faculty-team-grid");
+const studentContainer = document.getElementById("student-team-grid");
+if(!facultyContainer || !studentContainer) return;
+
+/* Faculty */
+
+facultyContainer.innerHTML = team.faculty.map(member => `
+<div class="team-card fade-up">
+<div class="team-card-top">
+  <img src="${member.image}" alt="${member.name}" class="team-photo">
+</div>
+<div class="team-card-body">
+  <h4>${member.name}</h4>
+  <div class="role">${member.role}</div>
+  <div class="team-socials">
+    ${member.linkedin ? `<a href="${member.linkedin}" target="_blank"><i data-lucide="linkedin"></i></a>` : ''}
+    ${member.email ? `<a href="mailto:${member.email}"><i data-lucide="mail"></i></a>` : ''}
+  </div>
+</div>
+</div>
+`).join("");
+
+/* Students */
+
+studentContainer.innerHTML = team.students.map(member => `
+<div class="team-card fade-up">
+<div class="team-card-top">
+  <img src="${member.image}" alt="${member.name}" class="team-photo">
+</div>
+<div class="team-card-body">
+  <h4>${member.name}</h4>
+  <div class="role">${member.role}</div>
+
+  <div class="team-socials">
+    ${member.linkedin ? `<a href="${member.linkedin}" target="_blank"><i data-lucide="linkedin"></i></a>` : ''}
+    ${member.instagram ? `<a href="${member.instagram}" target="_blank"><i data-lucide="instagram"></i></a>` : ''}
+    ${member.email ? `<a href="mailto:${member.email}"><i data-lucide="mail"></i></a>` : ''}
+  </div>
+</div>
+</div>
+`).join("");
 }
 
 // ── Contact Form ───────────────────────────────────────────────
@@ -811,6 +930,8 @@ document.addEventListener('DOMContentLoaded', () => {
   renderFullEvents();
   renderChapters();
   renderFullPublications();
+  renderTeam();
+  lucide.createIcons();
   initContactForm();
   initSmoothScroll();
   renderHomeEvents();
