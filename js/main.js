@@ -625,11 +625,12 @@ mediaContainer.innerHTML = imagesHTML + videosHTML;
 MODAL CLOSE BEHAVIOR
 ============================================================ */
 
-document.getElementById("event-modal-close").onclick = function(){
-
-document.getElementById("event-modal").classList.remove("open");
-
-};
+const _modalCloseBtn = document.getElementById("event-modal-close");
+if (_modalCloseBtn) {
+  _modalCloseBtn.onclick = function(){
+    document.getElementById("event-modal").classList.remove("open");
+  };
+}
 
 
 /* close modal if clicking outside */

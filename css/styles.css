@@ -1069,9 +1069,39 @@ grid-template-columns:1fr;
 cursor:pointer;
 }
 
+.event-description h2{
+margin-bottom:8px;
+}
+
+.event-description h3{
+margin-top:24px;
+margin-bottom:10px;
+}
+
+.event-description p{
+line-height:1.7;
+margin-bottom:12px;
+text-align:justify;
+}
+
+.event-description ul{
+margin-left:20px;
+margin-bottom:16px;
+}
+
 /* ============================================================
    PUBLICATIONS PAGE
    ============================================================ */
+
+  .publications-header{
+  background:
+    linear-gradient(rgba(11,31,58,0.85), rgba(11,31,58,0.92)),
+    url("../assets/bg-image/publication-bg.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 .pub-tabs { display: flex; gap: 4px; margin: 32px 0 0; background: var(--bg-light); padding: 6px; border-radius: 10px; display: inline-flex; }
 .pub-tab { padding: 10px 22px; border-radius: 7px; font-size: 0.84rem; font-weight: 500; cursor: pointer; transition: var(--transition); color: var(--text-mid); }
 .pub-tab.active, .pub-tab:hover { background: var(--ieee-blue); color: white; }
@@ -1287,3 +1317,7 @@ color:rgba(255,255,255,0.65);
 margin-top:6px;
 }
 
+/* FIX: restore text visibility */
+section{
+  color: var(--text-dark);
+}
