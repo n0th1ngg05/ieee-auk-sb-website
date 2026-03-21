@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const swupInstance = new Swup();
     // Re-run all renderers on every Swup page transition
     swupInstance.hooks.on("page:view", () => {
+      closeMobileNav(); // always close hamburger menu between pages
       initAll();
     });
   }
@@ -445,6 +446,18 @@ const sponsors = {
 
 
 // ── Navbar Scroll Shrink ───────────────────────────────────────
+// Guard flags — set once for the lifetime of the page so that
+// Swup's repeated initAll() calls never stack duplicate listeners.
+let _navScrollListenerAttached = false;
+let _navToggleListenerAttached = false;
+
+function closeMobileNav() {
+  const mobileNav = document.getElementById('mobile-nav');
+  const navToggle = document.querySelector('.nav-toggle');
+  if (mobileNav) mobileNav.classList.remove('open');
+  if (navToggle) navToggle.classList.remove('open');
+}
+
 function initNavbar() {
   const navbar = document.getElementById('navbar');
   const mobileNav = document.getElementById('mobile-nav');
@@ -452,24 +465,38 @@ function initNavbar() {
 
   if (!navbar) return;
 
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 60) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
+  // Scroll shrink — attach only once
+  if (!_navScrollListenerAttached) {
+    _navScrollListenerAttached = true;
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+  }
 
-  if (navToggle) {
+  // Hamburger toggle — attach only once (prevents stacking on Swup transitions)
+  if (navToggle && !_navToggleListenerAttached) {
+    _navToggleListenerAttached = true;
     navToggle.addEventListener('click', () => {
       navToggle.classList.toggle('open');
       if (mobileNav) mobileNav.classList.toggle('open');
     });
   }
 
-  // Active link
+  // Close mobile nav when any link inside it is tapped
+  // Re-query each time so newly injected links are covered after Swup
+  if (mobileNav) {
+    mobileNav.querySelectorAll('a').forEach(link => {
+      // Remove old listener before adding, preventing stacking
+      link.removeEventListener('click', closeMobileNav);
+      link.addEventListener('click', closeMobileNav);
+    });
+  }
+
+  // Active link highlight
   const currentPage = window.location.pathname.split('/').pop() || 'index.html';
   document.querySelectorAll('.nav-links a, #mobile-nav a').forEach(link => {
+    link.classList.remove('active');
     const href = link.getAttribute('href');
     if (href === currentPage || (currentPage === '' && href === 'index.html')) {
       link.classList.add('active');
@@ -658,14 +685,14 @@ function renderFullEvents() {
   const card = e.target.closest('.event-full-card[data-event-id]');
   if (!card) return;
   const ev = events.find(ev => ev.id === Number(card.dataset.eventId));
-  if (ev) openEventModal(ev.folder, ev.registration);
+  if (ev) openEventModal(ev);
 });
 }
 /* ============================================================
 EVENT MODAL SYSTEM
 ============================================================ */
 
-function openEventModal(folder, reg){
+function openEventModal(ev){
 
 const modal = document.getElementById("event-modal");
 const modalContent = document.getElementById("event-modal-content");
@@ -673,29 +700,56 @@ const modalContent = document.getElementById("event-modal-content");
 modal.classList.add("open");
 document.body.style.overflow = "hidden";
 
-/* Load event description */
+// Show a loading skeleton immediately so the modal never feels empty
+modalContent.innerHTML = `
+<div style="padding:20px 0;text-align:center;color:var(--text-light);">
+  <p style="font-family:'IBM Plex Mono';font-size:0.8rem;letter-spacing:0.08em;">Loading event details…</p>
+</div>`;
 
-fetch(`assets/events/${folder}/description.html`)
-.then(res => res.text())
+/* Load event description — fall back to JS data if file not found */
+fetch(`assets/events/${ev.folder}/description.html`)
+.then(res => {
+  if(!res.ok) throw new Error('description not found');
+  return res.text();
+})
 .then(desc => {
 
 modalContent.innerHTML = `
 <div class="event-description">
-
 ${desc}
-
 </div>
 
 <div class="event-reg">
-
-${renderRegistration(reg)}
-
+${renderRegistration(ev.registration)}
 </div>
 
 <div id="event-media"></div>
 `;
 
-loadEventMedia(folder);
+loadEventMedia(ev.folder);
+
+})
+.catch(() => {
+
+/* Fallback: build modal content from the JS data object */
+modalContent.innerHTML = `
+<div class="event-description">
+  <h2>${ev.title}</h2>
+  <p style="font-family:'IBM Plex Mono';font-size:0.75rem;letter-spacing:0.06em;color:var(--accent);margin-bottom:16px;">
+    ${ev.category.toUpperCase()} &nbsp;·&nbsp; ${ev.displayDate}
+  </p>
+  <p><strong>📍 Venue:</strong> ${ev.venue}</p>
+  <p style="margin-top:12px;">${ev.description}</p>
+</div>
+
+<div class="event-reg">
+${renderRegistration(ev.registration)}
+</div>
+
+<div id="event-media"></div>
+`;
+
+loadEventMedia(ev.folder);
 
 });
 
@@ -884,8 +938,8 @@ function renderFullPublications() {
       return p.type.toLowerCase().includes(currentType.toLowerCase());
     });
 
-    container.innerHTML = filtered.map(pub => `
-<div class="pub-item fade-up">
+    container.innerHTML = filtered.length ? filtered.map(pub => `
+<div class="pub-item">
   <div class="pub-header">
     <span class="pub-type">${pub.type}</span>
     <span class="pub-year">${pub.year}</span>
@@ -902,9 +956,8 @@ function renderFullPublications() {
     </a>
   </div>
 </div>
-`).join('');
+`).join('') : '<p style="color:var(--text-light);padding:24px 0;">No publications found for this filter.</p>';
 
-    initFadeAnimations();
   }
 
   tabs.forEach(tab => {
