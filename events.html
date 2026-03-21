@@ -29,12 +29,16 @@
 <a href="publications.html">Publications</a><a href="team.html">Team</a>
 <a href="sponsors.html">Sponsors</a><a href="contact.html">Contact</a>
 <a class="nav-join" href="https://ieee.org/membership" target="_blank">Join IEEE ↗</a>
-</div><div class="transition-fade" id="swup"><!-- EVENT MODAL --><div class="event-modal" id="event-modal">
+</div>
+<!-- EVENT MODAL — lives OUTSIDE #swup so position:fixed is relative
+     to the true viewport, not the will-change:transform container -->
+<div class="event-modal" id="event-modal">
 <div class="event-modal-box">
 <button id="event-modal-close">✕</button>
 <div id="event-modal-content"></div>
 </div>
-</div><section class="page-header events-header">
+</div>
+<div class="transition-fade" id="swup"><section class="page-header events-header">
 <div class="container page-header-content">
 <div class="section-label">What's Happening</div>
 <h1>Events &amp; Programs</h1>

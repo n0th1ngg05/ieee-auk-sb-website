@@ -758,7 +758,7 @@ footer {
 .org-label-wrap { position: sticky; top: 100px; }
 .org-label-wrap .org-num {
   font-family: 'Bebas Neue'; font-size: 5rem;
-  color: var(--border); letter-spacing: 0.02em; line-height: 1;
+  color: #4d667b; letter-spacing: 0.02em; line-height: 1;
 }
 .org-label-wrap h3 {
   font-family: 'Bebas Neue'; font-size: 1.8rem;
@@ -1086,20 +1086,29 @@ background-image:url("../assets/about/outreach.jpg");
 .event-modal {
   position: fixed;
   inset: 0;
+  z-index: 1000;
   background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 
+  /* Overlay itself scrolls — this is the key fix.
+     align-items: center breaks when the box is taller than the
+     viewport: flex overflow goes upward (off-screen), making the
+     modal invisible on mobile. flex-start + overlay scroll fixes it. */
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; 
 
-  z-index: 2000;
-  padding: 40px;
+  
+  /* Top padding = navbar height + breathing room */
+  padding: calc(var(--nav-h) + 10px) 10px 10px;
 
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s ease;
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  
 }
 
 .event-modal.open {
@@ -1107,77 +1116,102 @@ background-image:url("../assets/about/outreach.jpg");
   pointer-events: auto;
 }
 
-.event-modal-box{
-width:70%;
-max-width:1000px;
-max-height:85vh;
-/* background:rgb(255, 255, 255); */
-border-radius:14px;
-overflow:auto;
-box-shadow:0 40px 80px rgba(0,0,0,0.45);
-position:relative;
-padding:40px;
-transform: translateY(20px) scale(0.96);
-transition: 0.25s ease;
-background: rgba(255,255,255,0.95);
-backdrop-filter: blur(10px);
-border-radius: var(--radius-lg);
+.event-modal-box {
+  /* Horizontal centering via margin — no longer relying on flex Y-axis */
+  width: 70%;
+  max-width: 900px;
+  max-height: 120vh;
+  /* margin: 0 auto; */
+  overflow-y: auto;
+
+  background: rgba(255,255,255,0.97);
+  backdrop-filter: blur(10px);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.45);
+  position: relative;
+  padding: 48px 40px 40px;
+  
+
+  /* No max-height — the overlay scrolls, not the box */
+  transform: translateY(20px) scale(0.96);
+  transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+@media (max-width: 768px){
+  .event-modal {
+    padding: calc(var(--nav-h-small) + 16px) 12px 12px;
+    align-items:normal;
+  }
 }
 
 .event-modal.open .event-modal-box {
   transform: translateY(0) scale(1);
 }
 
-#event-modal-close{
-position:absolute;
-top:18px;
-right:18px;
-font-size:22px;
-cursor:pointer;
-color:#666;
+#event-modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 22px;
+  cursor: pointer;
+  color: #666;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s ease, color 0.2s ease;
+  /* Larger tap target for mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+#event-modal-close:hover {
+  background: var(--bg-light);
+  color: var(--navy);
 }
 
-.event-gallery{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:12px;
-margin-top:24px;
+.event-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 24px;
 }
 
-.event-gallery img{
-width:100%;
-border-radius:8px;
+.event-gallery img {
+  width: 100%;
+  border-radius: 8px;
 }
 
-.event-videos video{
-width:100%;
-margin-top:16px;
-border-radius:8px;
+.event-videos video {
+  width: 100%;
+  margin-top: 16px;
+  border-radius: 8px;
 }
 
-.event-meta{
-font-size:0.85rem;
-color:#666;
-margin-bottom:16px;
+.event-meta {
+  font-size: 0.85rem;
+  color: #666;
+  margin-bottom: 16px;
 }
 
-.event-reg{
-margin:20px 0;
+.event-reg {
+  margin: 20px 0;
 }
 
-/* MOBILE */
+/* MOBILE — tighter padding, full width */
+@media (max-width: 900px) {
+  .event-modal {
+    padding: calc(var(--nav-h) + 12px) 12px 24px;
+  }
 
-@media(max-width:900px){
+  .event-modal-box {
+    width: 100%;
+    padding: 24px 20px;
+  }
 
-.event-modal-box{
-width:95%;
-padding:24px;
-}
-
-.event-gallery{
-grid-template-columns:1fr;
-}
-
+  .event-gallery {
+    grid-template-columns: 1fr;
+  }
 }
 .event-full-card{
 cursor:pointer;
